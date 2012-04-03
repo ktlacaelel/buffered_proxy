@@ -17,10 +17,10 @@ Jeweler::Tasks.new do |gem|
   gem.name = "buffered_proxy"
   gem.homepage = "http://github.com/ktlacaelel/buffered_proxy"
   gem.license = "MIT"
-  gem.summary = %Q{TODO: one-line summary of your gem}
-  gem.description = %Q{TODO: longer description of your gem}
+  gem.summary = %Q{A proxy that thinks she's a buffer.}
+  gem.description = %Q{Use this as a channel to execute methods from another object, stash'em up but do not run until you are certain.. or clear the whole stack of execution. then start over.}
   gem.email = "kazu.dev@gmail.com"
-  gem.authors = ["kazuyoshi tlacaelel"]
+  gem.authors = ["kazuyoshi tlacaelel", "Fernando Trasviña"]
   # dependencies defined in Gemfile
 end
 Jeweler::RubygemsDotOrgTasks.new
