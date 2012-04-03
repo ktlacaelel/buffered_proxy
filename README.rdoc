@@ -1,19 +1,57 @@
 = buffered_proxy
 
-Description goes here.
+A proxy that thinks she's a buffer.
 
-== Contributing to buffered_proxy
- 
-* Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet.
-* Check out the issue tracker to make sure someone already hasn't requested it and/or contributed it.
-* Fork the project.
-* Start a feature/bugfix branch.
-* Commit and push until you are happy with your contribution.
-* Make sure to add tests for it. This is important so I don't break it in a future version unintentionally.
-* Please try not to mess with the Rakefile, version, or history. If you want to have your own version, or is otherwise necessary, that is fine, but please isolate to its own commit so I can cherry-pick around it.
+== Abstract
 
-== Copyright
+Use this as a channel to execute methods from another object, stash'em up but do not run until you are certain.. or clear the whole stack of execution. then start over.
 
-Copyright (c) 2012 kazuyoshi tlacaelel. See LICENSE.txt for
-further details.
+== Usage
 
+    require 'rubygems'
+    require 'buffered_proxy'
+
+    class Target
+
+      def initialize(string)
+        @string = string
+      end
+
+      def print
+        puts @string
+      end
+
+      def change string
+        @string = string
+      end
+
+    end
+
+    target = Target.new('Hello')
+    proxy = BufferedProxy.new(target, [:print, :change])
+
+    # Print the message twice
+    proxy.print
+    proxy.print
+    proxy.flush
+
+    # Do some stuff with the proxy, and then discard everything!
+    proxy.print
+    proxy.change 'this should never execute'
+    proxy.print
+    proxy.clear
+
+    # Start fresh now, print old message, change it and print it again.
+    proxy.print
+    proxy.change 'Good bye'
+    proxy.print
+    proxy.flush
+    proxy.flush
+
+
+The script above will output this.
+
+    Hello
+    Hello
+    Hello
+    Good bye
