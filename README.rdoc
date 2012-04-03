@@ -33,20 +33,24 @@ Use this as a channel to execute methods from another object, stash'em up but do
     # Print the message twice
     proxy.print
     proxy.print
-    proxy.flush
+    proxy.flush # Execute every instruction given, and clear the stack
+                # so we start from zero from this point on..
 
     # Do some stuff with the proxy, and then discard everything!
     proxy.print
     proxy.change 'this should never execute'
     proxy.print
-    proxy.clear
+    proxy.clear # Clean everything in the stack without running anything
 
     # Start fresh now, print old message, change it and print it again.
     proxy.print
     proxy.change 'Good bye'
     proxy.print
-    proxy.flush
-    proxy.flush
+    proxy.flush # Execute every instruction given, and clear the stack
+                # so we start from zero from this point on..
+
+    proxy.flush # Since the stack is clean now this shall not execute
+                # anythig!
 
 
 The script above will output this.
